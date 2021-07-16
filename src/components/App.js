@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
+import { Route, Switch } from 'react-router-dom';
+import Login from './Login';
+import Registration from './Registration';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import api from '../utils/api';
 import Header from './Header';
@@ -135,7 +137,15 @@ function App() {
     <>
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
-      <Main 
+      <Switch>
+        <Route path="/sign-in">
+          <Login/>
+        </Route>
+        <Route path="/sign-up">
+          <Registration/>
+        </Route>
+      </Switch>
+      {/* <Main 
         onEditProfile={handleEditPopup} 
         onAddPlace={handleAddPlacePopup} 
         onEditAvatar={handleEditAvatar}
@@ -166,7 +176,7 @@ function App() {
         cardData={cardData}
         onSubmit={handleConfirmSubmit}
       />
-      <Footer />
+      <Footer /> */}
       </CurrentUserContext.Provider>
     </>
   );

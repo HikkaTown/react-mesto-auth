@@ -1,0 +1,96 @@
+.auth {
+  max-width: 358px;
+  width: 100%;
+  margin: 60px auto 0;
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.auth__title {
+  color: #fff;
+  font-size: 24px;
+  line-height: 29px;
+  font-family: "Inter", "Arial", sans-serif;
+  font-weight: 900;
+  margin: 0;
+  margin-bottom: 50px;
+  padding: 0;
+  text-align: center;
+}
+
+.auth__subtitle {
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #fff;
+  font-family: "Inter", "Arial", sans-serif;
+  padding: 0;
+  margin: 0;
+  margin-top: 15px;
+}
+
+.auth__button {
+  background: none;
+  color: #fff;
+  border: none;
+  font-family: "Inter", "Arial", sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.auth__button:hover {
+  opacity: 0.6;
+}
+
+.auth__input {
+  border: none;
+  outline: none;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+  background: none;
+  color: #fff;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13px;
+  font-family: "Inter", "Arial", sans-serif;
+}
+
+.auth__input:focus {
+  border-bottom-color: rgb(166, 226, 75);
+}
+
+.auth__input:last-of-type {
+  margin-bottom: 0;
+}
+
+.auth__input::placeholder {
+  font-size: 14px;
+  line-height: 17px;
+  font-family: "Inter", "Arial", sans-serif;
+  color: #ccc;
+}
+
+.auth__submit {
+  margin-top: 216px;
+  border: none;
+  background-color: #fff;
+  color: #000;
+  border-radius: 2px;
+  padding: 14px 0px;
+  font-size: 18px;
+  font-family: "Inter", "Arial", sans-serif;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.auth__submit:hover {
+  opacity: 0.85;
+}
