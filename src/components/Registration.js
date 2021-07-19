@@ -66,7 +66,7 @@ class Registration extends React.Component {
             value={this.state.password}
           />
           <button className="auth__submit" type="submit">Зарегестрироваться</button>
-          <p className="auth__subtitle">Уже зарегестрированы? <Link exact to="/sign-in" className="auth__button">Войти</Link></p>
+          <p className="auth__subtitle">Уже зарегестрированы? <Link to="/sign-in" className="auth__button">Войти</Link></p>
         </form>
       </div>
     )

@@ -176,15 +176,15 @@ function App() {
       <Header setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
       <Switch>
         
-        <Route exact path="/sign-in">
+        <Route exact={true} path="/sign-in">
           <Login handleLogin={handleLogin} InfoTooltipOpen={handleInfoTooltipePopup}/>
         </Route>
-        <Route exact path="/sign-up">
+        <Route exact={true} path="/sign-up">
           <Registration InfoTooltipOpen={handleInfoTooltipePopup} />
         </Route>
         <ProtectedRoute
           path="/"
-          exact
+          exact={true}
           loggedIn={loggedIn}
           onEditProfile={handleEditPopup} 
           onAddPlace={handleAddPlacePopup} 
@@ -195,7 +195,7 @@ function App() {
           cardList={cards}
           component={Main}
         />
-        <Route exact path="/">
+        <Route exact={true} path="/">
           {loggedIn ? (
           <Redirect to="/"/>
           ) : (

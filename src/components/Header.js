@@ -25,13 +25,13 @@ function Header(props) {
   <header className={`header ${props.loggedIn ? 'header_loggedin' : ''}`}>
     <img src={logo} alt="Mesto" className="header__logo" />
     <Switch>
-      <Route path="/sign-in">
-        <Link exact to="/sign-up" className="header__button">Регистрация</Link>
+      <Route exact={true} path="/sign-in">
+        <Link to="/sign-up" className="header__button">Регистрация</Link>
       </Route>
-      <Route path="/sign-up">
-        <Link exact to="/sign-in" className="header__button">Вход</Link>
+      <Route exact={true} path="/sign-up">
+        <Link to="/sign-in" className="header__button">Вход</Link>
       </Route>
-      <Route path="/">
+      <Route exact={true} path="/">
         <div className="header__content">
           <p className="header__email">
             {localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).email : ''}
