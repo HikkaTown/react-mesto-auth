@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory, withRouter } from 'react-router-dom';
 import Login from './Login';
 import Registration from './Registration';
 import CurrentUserContext from '../contexts/CurrentUserContext';
@@ -12,6 +12,9 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup.js';
 import Footer from './Footer';
+import ProtectedRoute from './ProtectedRoute';
+import * as mestoAuth from '../mestoAuth.js';
+import InfoTooltip from './InfoTooltip';
 function App() {
   useEffect(() => {
     api.getUserInfo()
@@ -103,6 +106,7 @@ function App() {
     setEditAvatar(false);
     setSelectCard(null);
     setConfirmPopup(false)
+    setInfoTooltipePopup(false)
     setOverflowPage();
   }
 
@@ -133,27 +137,72 @@ function App() {
       })
       .catch((e) => console.log(`Ошибка - ${e}`))
   }
+  const [loggedIn, setLoggedIn] = useState(false);
+  function handleLogin(e) {
+    tokenCheck();
+  }
+  const history = useHistory();
+  const tokenCheck = () => {
+    const token = localStorage.getItem('token');
+    if(token) {
+      mestoAuth.userInfo()
+        .then(res => {
+          setLoggedIn(true);
+          localStorage.setItem('user', JSON.stringify({
+            _id: res.data._id,
+            email: res.data.email
+          }));
+          history.push('/');
+        })
+        .catch((err) => console.log(`Ошибка ${err}`))
+    }
+  }
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  const [isInfoToolipePopup, setInfoTooltipePopup] = useState(false);
+  const [typeMessage, setTypeMessage] = useState(false);
+
+  function handleInfoTooltipePopup(value) {
+    setInfoTooltipePopup(true);
+    setTypeMessage(value);
+    setOverflowPage();
+  }
+
   return (
     <>
     <CurrentUserContext.Provider value={currentUser}>
-      <Header />
+      <Header setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
       <Switch>
-        <Route path="/sign-in">
-          <Login/>
+        
+        <Route exact path="/sign-in">
+          <Login handleLogin={handleLogin} InfoTooltipOpen={handleInfoTooltipePopup}/>
         </Route>
-        <Route path="/sign-up">
-          <Registration/>
+        <Route exact path="/sign-up">
+          <Registration InfoTooltipOpen={handleInfoTooltipePopup} />
+        </Route>
+        <ProtectedRoute
+          path="/"
+          exact
+          loggedIn={loggedIn}
+          onEditProfile={handleEditPopup} 
+          onAddPlace={handleAddPlacePopup} 
+          onEditAvatar={handleEditAvatar}
+          onCardClick={handleCardClick}
+          onCardLike={handleLikeCard}
+          onCardDelete={handleDeletCard}
+          cardList={cards}
+          component={Main}
+        />
+        <Route exact path="/">
+          {loggedIn ? (
+          <Redirect to="/"/>
+          ) : (
+          <Redirect to="/sign-in"/>
+          )}
         </Route>
       </Switch>
-      {/* <Main 
-        onEditProfile={handleEditPopup} 
-        onAddPlace={handleAddPlacePopup} 
-        onEditAvatar={handleEditAvatar}
-        onCardClick={handleCardClick}
-        onCardLike={handleLikeCard}
-        onCardDelete={handleDeletCard}
-        cardList={cards}
-      />
       <ImagePopup card={selectCard} onClose={closeAllPopups}/>
       <EditProfilePopup 
         isOpen={isEditProfilePopupOpen} 
@@ -176,10 +225,16 @@ function App() {
         cardData={cardData}
         onSubmit={handleConfirmSubmit}
       />
-      <Footer /> */}
+      <InfoTooltip
+        isOpen={isInfoToolipePopup}
+        typeMessage={typeMessage}
+        onClose={closeAllPopups}
+        name='info'
+      />
+      {loggedIn ? <Footer /> : ""}
       </CurrentUserContext.Provider>
     </>
   );
 }
 
-export default App;
+export default withRouter(App);

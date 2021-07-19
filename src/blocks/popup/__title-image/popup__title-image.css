@@ -10,3 +10,9 @@
   font-size: 12px;
   line-height: 15px;
 }
+
+@media screen and (max-width: 430px) {
+  .popup__title-image {
+    left: 20px;
+  }
+}

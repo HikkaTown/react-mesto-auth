@@ -16,10 +16,3 @@
   -ms-flex-direction: column;
   flex-direction: column;
 }
-
-@media screen and (max-width: 430px) {
-  .popup__container_type_add-form {
-    margin: 0 19px;
-    padding: 25px 22px;
-  }
-}

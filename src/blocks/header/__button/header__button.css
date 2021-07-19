@@ -7,8 +7,16 @@
   background: none;
   border: none;
   color: #fff;
+  text-decoration: none;
 }
 
 .header__button:hover {
   opacity: .6;
+}
+
+@media screen and (max-width: 425px) {
+  .header__button {
+    margin-top: 27px;
+    margin-right: 30px;
+  }
 }
