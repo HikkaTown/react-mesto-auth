@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Redirect, Route, Switch, useHistory, withRouter } from 'react-router-dom';
 import Login from './Login';
 import Registration from './Registration';
@@ -142,7 +142,23 @@ function App() {
     tokenCheck();
   }
   const history = useHistory();
-  const tokenCheck = () => {
+  // const tokenCheck = () => {
+  //   const token = localStorage.getItem('token');
+  //   if(token) {
+  //     mestoAuth.userInfo()
+  //       .then(res => {
+  //         setLoggedIn(true);
+  //         localStorage.setItem('user', JSON.stringify({
+  //           _id: res.data._id,
+  //           email: res.data.email
+  //         }));
+  //         history.push('/');
+  //       })
+  //       .catch((err) => console.log(`Ошибка ${err}`))
+  //   }
+  // }
+
+  const tokenCheck = useCallback(() => {
     const token = localStorage.getItem('token');
     if(token) {
       mestoAuth.userInfo()
@@ -156,10 +172,11 @@ function App() {
         })
         .catch((err) => console.log(`Ошибка ${err}`))
     }
-  }
+  }, [history])
+
   useEffect(() => {
     tokenCheck();
-  }, []);
+  }, [tokenCheck]);
 
   const [isInfoToolipePopup, setInfoTooltipePopup] = useState(false);
   const [typeMessage, setTypeMessage] = useState(false);
