@@ -142,22 +142,6 @@ function App() {
     tokenCheck();
   }
   const history = useHistory();
-  // const tokenCheck = () => {
-  //   const token = localStorage.getItem('token');
-  //   if(token) {
-  //     mestoAuth.userInfo()
-  //       .then(res => {
-  //         setLoggedIn(true);
-  //         localStorage.setItem('user', JSON.stringify({
-  //           _id: res.data._id,
-  //           email: res.data.email
-  //         }));
-  //         history.push('/');
-  //       })
-  //       .catch((err) => console.log(`Ошибка ${err}`))
-  //   }
-  // }
-
   const tokenCheck = useCallback(() => {
     const token = localStorage.getItem('token');
     if(token) {
