@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 function InfoTooltip(props) {
-  useEffect(() => {
-  }, [props.isOpen, props.typeMessage]);
   return(
     <div className={`animation-transition popup popup_type_${props.name} ${props.isOpen ? 'popup_opened' : ''}`}>
       <div className={`popup__container popup__container_type_${props.name}`}>

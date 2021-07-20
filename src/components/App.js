@@ -171,6 +171,34 @@ function App() {
     setOverflowPage();
   }
 
+  function handleSubmitLogin(email, password) {
+    mestoAuth.login(email, password)
+      .then((res) => {
+        localStorage.setItem('token', res.token);
+        handleLogin();
+      })
+      .catch((err) => {
+        handleInfoTooltipePopup(false);
+        console.log(`Ошибка - ${err}`);
+      });
+  }
+
+  function handleSubmitRegister(email, password) {
+    mestoAuth.register(email, password)
+      .then((data) => {
+        if(data) {
+          handleInfoTooltipePopup(true);
+        } else {
+          console.log('Что-то пошло не так!');
+        }
+      })
+      .catch((err) => {
+        console.log(`Ошибка - ${err}`);
+        handleInfoTooltipePopup(false);
+      });
+  }
+
+
   return (
     <>
     <CurrentUserContext.Provider value={currentUser}>
@@ -178,10 +206,10 @@ function App() {
       <Switch>
         
         <Route exact={true} path="/sign-in">
-          <Login handleLogin={handleLogin} InfoTooltipOpen={handleInfoTooltipePopup}/>
+          <Login handleSubmitLogin={handleSubmitLogin}/>
         </Route>
         <Route exact={true} path="/sign-up">
-          <Registration InfoTooltipOpen={handleInfoTooltipePopup} />
+          <Registration handleSubmitRegister={handleSubmitRegister} />
         </Route>
         <ProtectedRoute
           path="/"

@@ -1,5 +1,4 @@
 import React from 'react';
-import * as mestoAuth from '../mestoAuth.js';
 import {Link, withRouter} from 'react-router-dom';
 class Registration extends React.Component {
   constructor(props) {
@@ -21,24 +20,7 @@ class Registration extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    mestoAuth.register(this.state.email, this.state.password)
-      .then((data) => {
-        if(data) {
-          this.setState({
-            message: ''
-          }, () => {
-            this.props.InfoTooltipOpen(true);
-          })
-        } else {
-          this.setState({
-            message: 'Что-то пошло не так!'
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(`Ошибка - ${err}`);
-        this.props.InfoTooltipOpen(false)
-      });
+    this.props.handleSubmitRegister(this.state.email, this.state.password);
     }
   render() {
     return(

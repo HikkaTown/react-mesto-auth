@@ -1,5 +1,4 @@
 import React from 'react';
-import * as mestoAuth from '../mestoAuth.js';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -9,7 +8,6 @@ class Login extends React.Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleLogin = this.props.handleLogin;
   }
 
   handleChange(e) {
@@ -21,16 +19,7 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    mestoAuth.login(this.state.email, this.state.password)
-      .then((res) => {
-        localStorage.setItem('token', res.token);
-        this.handleLogin();
-      })
-      .catch((err) => {
-        this.props.InfoTooltipOpen(false);
-        console.log(`Ошибка - ${err}`);
-      })
-
+    this.props.handleSubmitLogin(this.state.email, this.state.password);
   }
 
   render() {
